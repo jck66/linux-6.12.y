@@ -146,6 +146,21 @@
 		vin-supply = <&vcc5v0_sys>;
 	};
 
+	/* In radxa_e20c_x1000_schematic.pdf, GPIO4 RK_PB4 is used as USB20_HOST_EN. */
+	vcc5v0_usb20_x1: regulator-5v0-vcc-usb20-x1 {
+		compatible = "regulator-fixed";
+		enable-active-high;
+		gpios = <&gpio4 RK_PB4 GPIO_ACTIVE_HIGH>;
+		pinctrl-names = "default";
+		pinctrl-0 = <&usb_host_en_x1>;
+		regulator-always-on;
+		regulator-boot-on;
+		regulator-name = "vcc5v0_usb20_x1";
+		regulator-min-microvolt = <5000000>;
+		regulator-max-microvolt = <5000000>;
+		vin-supply = <&vcc5v0_sys>;
+	};
+
 	vccio_sd: regulator-vccio-sd {
 		compatible = "regulator-gpio";
 		gpios = <&gpio4 RK_PB6 GPIO_ACTIVE_HIGH>;
@@ -294,6 +309,10 @@
 	usb {
 		usb_host_en: usb-host-en {
 			rockchip,pins = <0 RK_PA1 RK_FUNC_GPIO &pcfg_pull_none>;
+		};
+
+		usb_host_en_x1: usb-host-en-x1 {
+			rockchip,pins = <4 RK_PB4 RK_FUNC_GPIO &pcfg_pull_none>;
 		};
 	};
 };
